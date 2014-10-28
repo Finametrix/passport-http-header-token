@@ -7,16 +7,15 @@ var chai = require('chai')
 
 describe('Strategy', function() {
 
-  describe('passing request to verify callback', function() {
-    var strategy = new Strategy({passReqToCallback: true}, function(req, token, done) {
+  describe('handling a request with valid credentials in headers using custom header name', function() {
+    var strategy = new Strategy({ tokenHeader: 'x-authorization'}, function(token, done) {
       if (token == 'a_token') {
-        return done(null, { id: '1234' }, { scope: 'read', foo: req.headers['x-foo'] });
+        return done(null, { id: '1234' }, { scope: 'read' });
       }
       return done(null, false);
     });
 
-    var user
-      , info;
+    var user, info;
 
     before(function(done) {
       chai.passport(strategy)
@@ -26,8 +25,7 @@ describe('Strategy', function() {
           done();
         })
         .req(function(req) {
-          req.headers['x-foo'] = 'hello';
-          req.headers['authorization'] = 'Token a_token';
+          req.headers = {'x-authorization': 'Token a_token'};
         })
         .authenticate();
     });
@@ -41,10 +39,5 @@ describe('Strategy', function() {
       expect(info).to.be.an.object;
       expect(info.scope).to.equal('read');
     });
-
-    it('should supply request header in info', function() {
-      expect(info.foo).to.equal('hello');
-    });
   });
-
 });

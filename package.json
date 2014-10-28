@@ -1,27 +1,25 @@
 {
-  "name": "passport-local",
+  "name": "passport-http-header-token",
   "version": "1.0.0",
-  "description": "Local username and password authentication strategy for Passport.",
+  "description": "Passport strategy for authenticating with a http header token",
   "keywords": [
     "passport",
-    "local",
     "auth",
     "authn",
     "authentication",
-    "username",
-    "password"
+    "header",
+    "token"
   ],
   "author": {
-    "name": "Jared Hanson",
-    "email": "jaredhanson@gmail.com",
-    "url": "http://www.jaredhanson.net/"
+    "name": "Pelle Almquist",
+    "email": "per.almquist@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jaredhanson/passport-local.git"
+    "url": "git://github.com/peralmq/passport-http-header-token.git"
   },
   "bugs": {
-    "url": "http://github.com/jaredhanson/passport-local/issues"
+    "url": "http://github.com/peralmq/passport-http-header-token/issues"
   },
   "licenses": [
     {

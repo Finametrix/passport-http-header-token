@@ -1,14 +1,5 @@
-# passport-local
-
-[![Build](https://travis-ci.org/jaredhanson/passport-local.png)](https://travis-ci.org/jaredhanson/passport-local)
-[![Coverage](https://coveralls.io/repos/jaredhanson/passport-local/badge.png)](https://coveralls.io/r/jaredhanson/passport-local)
-[![Quality](https://codeclimate.com/github/jaredhanson/passport-local.png)](https://codeclimate.com/github/jaredhanson/passport-local)
-[![Dependencies](https://david-dm.org/jaredhanson/passport-local.png)](https://david-dm.org/jaredhanson/passport-local)
-[![Tips](http://img.shields.io/gittip/jaredhanson.png)](https://www.gittip.com/jaredhanson/)
-
-
-[Passport](http://passportjs.org/) strategy for authenticating with a username
-and password.
+# passport-http-header-token
+[Passport](http://passportjs.org/) strategy for authenticating with a http header token - based on [passport-local](https://github.com/jaredhanson/passport-local).
 
 This module lets you authenticate using a username and password in your Node.js
 applications.  By plugging into Passport, local authentication can be easily and
@@ -18,22 +9,21 @@ unobtrusively integrated into any application or framework that supports
 
 ## Install
 
-    $ npm install passport-local
+    $ npm install passport-http-header-token
 
 ## Usage
 
 #### Configure Strategy
 
-The local authentication strategy authenticates users using a username and
-password.  The strategy requires a `verify` callback, which accepts these
-credentials and calls `done` providing a user.
+The http header token authentication strategy authenticates users using a token.
+The strategy requires a `verify` callback, which accepts the
+credential and calls `done` providing a user.
 
-    passport.use(new LocalStrategy(
-      function(username, password, done) {
-        User.findOne({ username: username }, function (err, user) {
+    passport.use(new HTTPHeaderTokenStrategy(
+      function(token, done) {
+        User.findOne({ token: token }, function (err, user) {
           if (err) { return done(err); }
           if (!user) { return done(null, false); }
-          if (!user.verifyPassword(password)) { return done(null, false); }
           return done(null, user);
         });
       }
@@ -41,21 +31,21 @@ credentials and calls `done` providing a user.
 
 #### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'local'` strategy, to
+Use `passport.authenticate()`, specifying the `'http-header-token'` strategy, to
 authenticate requests.
 
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
-    app.post('/login', 
-      passport.authenticate('local', { failureRedirect: '/login' }),
+    app.post('/login',
+      passport.authenticate('http-header-token', { failureRedirect: '/login' }),
       function(req, res) {
         res.redirect('/');
       });
 
 ## Examples
 
-For complete, working examples, refer to the multiple [examples](https://github.com/jaredhanson/passport-local/tree/master/examples) included.
+For a complete, working example, refer to the [HTTP Header Token example](https://github.com/peralmq/passport-http-header-token/tree/master/examples/http-header-token).
 
 ## Tests
 
@@ -70,4 +60,4 @@ For complete, working examples, refer to the multiple [examples](https://github.
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2011-2014 Jared Hanson <[http://jaredhanson.net/](http://jaredhanson.net/)>
+Copyright (c) 2011-2014 Pelle Almquist
